@@ -1,0 +1,21 @@
+class Solution {
+public:
+    TreeNode *temp=NULL;
+    void invertTreeFunc(TreeNode *root)
+    {
+        if(!root)
+            return;
+        invertTreeFunc(root->left);
+        invertTreeFunc(root->right);
+        temp=root->left;
+        root->left=root->right;
+        root->right=temp;
+    }
+    
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root)
+            return root;
+        invertTreeFunc(root);
+        return root;
+    }
+};
