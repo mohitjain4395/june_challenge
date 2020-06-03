@@ -1,0 +1,57 @@
+class Solution {
+public:
+    
+    int partitionfunc(int arr[], int points[], int low, int high)
+    {
+        int pivot = arr[high];
+        int i = (low - 1);
+        for (int j = low; j <= high- 1; j++)
+        {  
+            if (arr[j] <= pivot)
+            {
+                i++;
+                swap(arr[i], arr[j]);
+                swap(points[i],points[j]);
+            }
+        }
+        swap(arr[i + 1], arr[high]);
+        swap(points[i+1],points[high]);
+        return (i + 1);
+    }   
+   
+    void sortfunc(int arr[], int points[], int l, int r)
+    {
+        if (l < r)
+        {
+        int pi = partitionfunc(arr, points, l, r);  
+        sortfunc(arr, points, l, pi - 1);
+        sortfunc(arr, points, pi + 1, r);
+        }
+    }
+
+    
+    int twoCitySchedCost(vector<vector<int>>& costs) {
+        int len=costs.size();
+        int diff[len];
+        int index[len];
+        for(int i=0;i<len;i++)
+        {
+            diff[i]=costs[i][0]-costs[i][1];
+            index[i]=i;
+        }
+        sortfunc(diff, index, 0, len-1);
+        int sum=0;
+        int j;
+        for(int i=0;i<len/2;i++)
+        {
+            j=index[i];
+            sum+=costs[j][0];
+        }
+        for(int i=len/2;i<len;i++)
+        {
+            j=index[i];
+            sum+=costs[j][1];
+        }
+        return sum;
+    }
+};
