@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        byte b;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]>>1)
+            cout<<"t"<<endl;
+        }
+        return 0;
+    }
+};

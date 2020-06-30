@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int sum=0;
+    vector <int> wsum;
+    Solution(vector<int>& w) {
+        sum=0;
+        for(int i : w)
+        {
+            sum+=i;
+            wsum.push_back(sum);
+        }
+    }
+    
+    int pickIndex() {
+        int index=rand()%sum;
+        return binarySearch(index+1);
+    }
+    
+    int binarySearch(int val)
+    {
+        int l=0, mid;
+        int r=wsum.size()-1;
+        while(l < r)
+        {
+            mid=l+(r-l)/2;
+            if(val > wsum[mid])
+                l=mid+1;
+            else
+                r=mid;
+        }
+        return l;
+    }
+};

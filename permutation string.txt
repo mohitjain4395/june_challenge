@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        vector <int> fact(n,1);
+        vector <int> digits(n,1);
+        for(int i=1;i<n;i++)
+        {
+            fact[i]=fact[i-1]*(i+1);
+            digits[i]=i+1;
+        }
+        string res="";
+        int repeat, next_digit;
+        while(res.length()<n-1)
+        {
+            repeat=fact[fact.size()-2];
+            next_digit=(k-1)/repeat;
+            res+=to_string(digits[next_digit]);
+            digits.erase(digits.begin()+next_digit);
+            fact.pop_back();
+            k=k%repeat;
+            if(k==0)
+            {
+                for(int i=digits.size()-1;i>=0;i--)
+                    res+=to_string(digits[i]);
+            }
+        }
+        if(res.length()<n) res+=to_string(digits[0]);
+        return res;
+    }
+};

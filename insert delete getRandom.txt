@@ -1,0 +1,40 @@
+class RandomizedSet {
+public:
+    /** Initialize your data structure here. */
+    vector <int> values;
+    map <int, int> mp;
+    int size=0;
+    RandomizedSet() {
+        size=0;
+        mp.clear();
+        values.clear();
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    bool insert(int val) {
+        if(mp.find(val)!=mp.end())
+            return false;
+        values.push_back(val);
+        mp.insert({val,size});
+        size++;
+        return true;
+    }
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    bool remove(int val) {
+        if(mp.find(val)==mp.end() || mp.empty())
+            return false;
+        int index=mp[val];
+        values[index]=values[size-1];
+        mp[values[index]]=index;
+        values.pop_back();
+        mp.erase(val);
+        size--;
+        return true;
+    }
+    
+    /** Get a random element from the set. */
+    int getRandom() {
+        return values[rand()%size];
+    }
+};

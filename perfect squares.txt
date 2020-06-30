@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int numSquares(int n) {
+        vector <int> dp(n+1,0);
+        for(int x=1;x<=n;x++)
+        {
+            int minval=x;
+            int sq=1,y=1;
+            while(sq<=x)
+            {
+                minval=min(minval,1+dp[x-sq]);
+                y++;
+                sq=y*y;
+            }
+            dp[x]=minval;
+        }
+        return dp[n];
+    }
+};
